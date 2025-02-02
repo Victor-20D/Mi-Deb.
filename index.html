@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños, Mi Princesa!</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      color: #D1B28D;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      position: relative;
+      background-image: url('tu-imagen-de-fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: transform 20s ease-in-out;
+    }
+
+    /* Esta clase se agregará cuando se presione el botón */
+    .animarFondo {
+      animation: contraerFondo 20s ease-in-out infinite;
+    }
+
+    @keyframes contraerFondo {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    h1 {
+      font-size: 3em;
+      font-family: 'Dancing Script', cursive;
+      margin-top: 50px;
+      color: #D1B28D;
+      text-shadow: 3px 3px 8px black;
+    }
+
+    .mensaje {
+      font-size: 1.2em;
+      padding: 20px;
+      background: rgba(209, 178, 141, 0.5);
+      border-radius: 15px;
+      max-width: 90%;
+      margin: auto;
+      box-shadow: 0px 0px 10px rgba(209, 178, 141, 0.5);
+      color: black;
+      text-shadow: none;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0px 0px 40px rgba(209, 178, 141, 0.8);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 0px 60px rgba(209, 178, 141, 1);
+    }
+
+    video {
+      width: 90%;
+      margin-top: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 8px rgba(209, 178, 141, 0.5);
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: #D1B28D;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #B89A75;
+    }
+
+    .tulipanes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .tulipan {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      opacity: 0;
+      animation: caerTulipan 8s linear infinite, girarTulipan 8s linear infinite;
+    }
+
+    @keyframes caerTulipan {
+      0% {
+        top: -50px;
+        opacity: 1;
+        left: calc(100% * var(--random-left));
+      }
+      100% {
+        top: 100%;
+        opacity: 0;
+        left: calc(100% * var(--random-left));
+      }
+    }
+
+    @keyframes girarTulipan {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #hiddenContent {
+      display: none;
+    }
+
+    #errorMessage {
+      color: red;
+      display: none;
+    }
+
+    #keywordSection {
+      font-size: 1.5em;
+      padding: 20px;
+      background: rgba(209, 178, 141, 0.7);
+      border-radius: 20px;
+      max-width: 80%;
+      margin: 50px auto;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      color: black;
+      line-height: 1.8;
+      text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.6);
+    }
+
+    #keywordInput {
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      border: 2px solid #D1B28D;
+      background-color: rgba(209, 178, 141, 0.7);
+      color: black;
+      text-align: center;
+      width: 80%;
+    }
+
+    #keywordInput::placeholder {
+      color: black;
+    }
+
+    #errorHint {
+      color: black;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    #keywordInputWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #keywordInputWrapper button {
+      margin-top: 20px;
+    }
+
+    /* Mejoras para móviles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5em;
+      }
+
+      .mensaje {
+        font-size: 1em;
+        max-width: 95%;
+      }
+
+      .gallery img {
+        width: 100%;
+        height: auto;
+      }
+
+      button {
+        font-size: 1em;
+        padding: 12px 25px;
+      }
+
+      video {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>¡Feliz Cumpleaños, mi deb hermosa!</h1>
+
+  <div id="gameContainer">
+    <div id="keywordSection">
+      <h2>Por favor ingresa la palabra clave</h2>
+      <div id="keywordInputWrapper">
+        <input type="text" id="keywordInput" placeholder="Ingresa la palabra clave">
+        <button onclick="checkKeyword()">Ingresar</button>
+      </div>
+      <p id="errorMessage">La palabra clave es incorrecta. Por favor, intenta de nuevo.</p>
+      <p id="errorHint"></p>
+    </div>
+  </div>
+
+  <div id="hiddenContent">
+    <div class="mensaje"> Y que el universo, tú y yo nos hagamos uno, porque cuando veo tus ojos, veo miles de estrellas, cuando imagino el sentir de tu cuerpo, siento que floto, es como ver cuerpos celestes una y otra vez, siendo cada uno igual de hermoso que el anterior. Cuando imagino tus labios juntándose con los míos, lo imagino como una estrella, luceros en la oscuridad que son tesoros guardados en mi pecho, planetas que vagan sin rumbo, que son nuestro futuro, algo incierto, pero divino. Una estrella busca una conexión creando así una constelación, siendo un mapa celestial, marcando nuestros caminos, marcando nuestros sentidos, creando un ayer, un mañana y sobre todo un ahora. El inconmensurable espacio es la amplitud de mis sentimientos hacia ti, Deb. Te amo mucho.</div>
+
+    <div class="gallery">
+      <img src="foto1.jpg" alt="Foto de mi amor" onerror="this.src='default.jpg'">
+      <img src="foto2.jpg" alt="Otra foto hermosa" onerror="this.src='default.jpg'">
+    </div>
+
+    <video controls>
+      <source src="video-cumpleaños.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+
+    <div class="gallery">
+      <img src="foto3.jpg" alt="Mi princesa" onerror="this.src='default.jpg'">
+    </div>
+
+    <button id="playButton" onclick="playAudio()">Presiona aquí</button>
+    <audio id="audioPlayer" preload="auto">
+      <source src="Perfect.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="tulipanes">
+      <img src="tulipan1.jpg" class="tulipan" style="--random-left: 0.1; animation-delay: 1s;">
+      <img src="tulipan2.jpg" class="tulipan" style="--random-left: 0.2; animation-delay: 3s;">
+      <img src="tulipan3.jpg" class="tulipan" style="--random-left: 0.3; animation-delay: 5s;">
+      <img src="tulipan4.jpg" class="tulipan" style="--random-left: 0.4; animation-delay: 7s;">
+      <img src="tulipan5.jpg" class="tulipan" style="--random-left: 0.5; animation-delay: 9s;">
+      <img src="tulipan1.jpg" class="tulipan" style="--random-left: 0.1; animation-delay: 1s;">
+      <img src="tulipan2.jpg" class="tulipan" style="--random-left: 0.2; animation-delay: 3s;">
+      <img src="tulipan3.jpg" class="tulipan" style="--random-left: 0.3; animation-delay: 5s;">
+      <img src="tulipan4.jpg" class="tulipan" style="--random-left: 0.4; animation-delay: 7s;">
+      <img src="tulipan5.jpg" class="tulipan" style="--random-left: 0.5; animation-delay: 9s;">
+      <img src="tulipan1.jpg" class="tulipan" style="--random-left: 0.1; animation-delay: 1s;">
+      <img src="tulipan2.jpg" class="tulipan" style="--random-left: 0.2; animation-delay: 3s;">
+      <img src="tulipan3.jpg" class="tulipan" style="--random-left: 0.3; animation-delay: 5s;">
+      <img src="tulipan4.jpg" class="tulipan" style="--random-left: 0.4; animation-delay: 7s;">
+      <img src="tulipan5.jpg" class="tulipan" style="--random-left: 0.5; animation-delay: 9s;">
+    </div>
+  </div>
+
+  <script>
+  const correctKeyword = "interstellar";
+  const hints = [
+    "Pista 1: Es un recuerdo, un momento, una emoción por algo.",
+    "Pista 2: Fue un momento que compartimos, tal vez una canción que escuchamos, algo que hicimos o una película que vimos.",
+    "Pista 3: No flaca, te pasas, 3 intentos? ashhh. A ver, es algo que se reestreno este año, algo que nos hubiera encantado ver juntos sim importar que durará horas aquella cosa."
+  ];
+
+  let hintIndex = 0;
+
+  // Desactiva la animación de fondo por defecto
+  document.body.style.animation = 'none';
+
+  function checkKeyword() {
+    const keywordInput = document.getElementById('keywordInput').value.trim().toLowerCase();
+    const errorMessage = document.getElementById('errorMessage');
+    const hiddenContent = document.getElementById('hiddenContent');
+    const gameContainer = document.getElementById('gameContainer');
+    const errorHint = document.getElementById('errorHint');
+
+    if (keywordInput === correctKeyword) {
+      hiddenContent.style.display = 'block';
+      gameContainer.style.display = 'none';
+    } else {
+      errorMessage.style.display = 'block';
+      if (hintIndex < hints.length) {
+        errorHint.textContent = hints[hintIndex];
+        hintIndex++;
+      }
+    }
+  }
+
+  function playAudio() {
+    const audio = document.getElementById('audioPlayer');
+    audio.play();
+    document.getElementById("playButton").style.display = "none";
+
+    // Inicia la animación del fondo solo después de presionar el botón
+    document.body.style.animation = 'contraerFondo 20s ease-in-out infinite';
+  }
+</script>
+
