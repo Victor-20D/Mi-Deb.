@@ -114,6 +114,7 @@
       height: 40px;
       opacity: 0;
       animation: caerTulipan 8s linear infinite, girarTulipan 8s linear infinite;
+      transform-origin: center;
     }
 
     @keyframes caerTulipan {
@@ -217,6 +218,11 @@
       video {
         width: 100%;
       }
+
+      .tulipan {
+        width: 30px;
+        height: 30px; /* Reduce el tamaño de los tulipanes */
+      }
     }
   </style>
 </head>
@@ -258,63 +264,33 @@
     </audio>
 
     <div class="tulipanes">
-      <img src="tulipan1.jpg" class="tulipan" style="--random-left: 0.1; animation-delay: 1s;">
-      <img src="tulipan2.jpg" class="tulipan" style="--random-left: 0.2; animation-delay: 3s;">
-      <img src="tulipan3.jpg" class="tulipan" style="--random-left: 0.3; animation-delay: 5s;">
-      <img src="tulipan4.jpg" class="tulipan" style="--random-left: 0.4; animation-delay: 7s;">
-      <img src="tulipan5.jpg" class="tulipan" style="--random-left: 0.5; animation-delay: 9s;">
-      <img src="tulipan1.jpg" class="tulipan" style="--random-left: 0.1; animation-delay: 1s;">
-      <img src="tulipan2.jpg" class="tulipan" style="--random-left: 0.2; animation-delay: 3s;">
-      <img src="tulipan3.jpg" class="tulipan" style="--random-left: 0.3; animation-delay: 5s;">
-      <img src="tulipan4.jpg" class="tulipan" style="--random-left: 0.4; animation-delay: 7s;">
-      <img src="tulipan5.jpg" class="tulipan" style="--random-left: 0.5; animation-delay: 9s;">
-      <img src="tulipan1.jpg" class="tulipan" style="--random-left: 0.1; animation-delay: 1s;">
-      <img src="tulipan2.jpg" class="tulipan" style="--random-left: 0.2; animation-delay: 3s;">
-      <img src="tulipan3.jpg" class="tulipan" style="--random-left: 0.3; animation-delay: 5s;">
-      <img src="tulipan4.jpg" class="tulipan" style="--random-left: 0.4; animation-delay: 7s;">
-      <img src="tulipan5.jpg" class="tulipan" style="--random-left: 0.5; animation-delay: 9s;">
+      <div class="tulipan1" style="--random-left: 0.1;"></div>
+      <div class="tulipan2" style="--random-left: 0.3;"></div>
+      <div class="tulipan3" style="--random-left: 0.5;"></div>
+      <div class="tulipan4" style="--random-left: 0.7;"></div>
+      <div class="tulipan5" style="--random-left: 0.9;"></div>
     </div>
   </div>
 
   <script>
-  const correctKeyword = "interstellar";
-  const hints = [
-    "Pista 1: Es un recuerdo, un momento, una emoción por algo.",
-    "Pista 2: Fue un momento que compartimos, tal vez una canción que escuchamos, algo que hicimos o una película que vimos.",
-    "Pista 3: No flaca, te pasas, 3 intentos? ashhh. A ver, es algo que se reestreno este año, algo que nos hubiera encantado ver juntos sim importar que durará horas aquella cosa."
-  ];
+    function playAudio() {
+      const audio = document.getElementById("audioPlayer");
+      audio.play();
+    }
 
-  let hintIndex = 0;
+    function checkKeyword() {
+      const keyword = document.getElementById("keywordInput").value;
+      const correctKeyword = "tulipanes";
+      const errorMessage = document.getElementById("errorMessage");
+      const keywordSection = document.getElementById("keywordSection");
 
-  // Desactiva la animación de fondo por defecto
-  document.body.style.animation = 'none';
-
-  function checkKeyword() {
-    const keywordInput = document.getElementById('keywordInput').value.trim().toLowerCase();
-    const errorMessage = document.getElementById('errorMessage');
-    const hiddenContent = document.getElementById('hiddenContent');
-    const gameContainer = document.getElementById('gameContainer');
-    const errorHint = document.getElementById('errorHint');
-
-    if (keywordInput === correctKeyword) {
-      hiddenContent.style.display = 'block';
-      gameContainer.style.display = 'none';
-    } else {
-      errorMessage.style.display = 'block';
-      if (hintIndex < hints.length) {
-        errorHint.textContent = hints[hintIndex];
-        hintIndex++;
+      if (keyword.toLowerCase() === correctKeyword) {
+        keywordSection.style.display = "none";
+        document.getElementById("hiddenContent").style.display = "block";
+      } else {
+        errorMessage.style.display = "block";
       }
     }
-  }
-
-  function playAudio() {
-    const audio = document.getElementById('audioPlayer');
-    audio.play();
-    document.getElementById("playButton").style.display = "none";
-
-    // Inicia la animación del fondo solo después de presionar el botón
-    document.body.style.animation = 'contraerFondo 20s ease-in-out infinite';
-  }
-</script>
-
+  </script>
+</body>
+</html>
