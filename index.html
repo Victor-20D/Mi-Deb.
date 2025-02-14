@@ -247,40 +247,44 @@
     </audio>
 
     <div class="tulipanes">
-      <div class="tulipan" style="--random-left: 0.1; animation-delay: 1s;"></div>
-      <div class="tulipan" style="--random-left: 0.3; animation-delay: 2s;"></div>
-      <div class="tulipan" style="--random-left: 0.5; animation-delay: 3s;"></div>
-      <div class="tulipan" style="--random-left: 0.7; animation-delay: 4s;"></div>
-      <div class="tulipan" style="--random-left: 0.9; animation-delay: 5s;"></div>
+      <img class="tulipan" src="tulipan1.jpg" style="--random-left: 0.1; animation-delay: 1s;">
+      <img class="tulipan" src="tulipan2.jpg" style="--random-left: 0.3; animation-delay: 2s;">
+      <img class="tulipan" src="tulipan3.jpg" style="--random-left: 0.5; animation-delay: 3s;">
+      <img class="tulipan" src="tulipan4.jpg" style="--random-left: 0.7; animation-delay: 4s;">
+      <img class="tulipan" src="tulipan5.jpg" style="--random-left: 0.9; animation-delay: 5s;">
     </div>
   </div>
 
   <script>
-  const correctKeyword = "interstellar";
-  const hints = [
-    "Pista 1: Es un recuerdo, un momento, una emoción por algo.",
-    "Pista 2: Fue un momento que compartimos, tal vez una canción que escuchamos, algo que hicimos o una película que vimos.",
-    "Pista 3: No flaca, te pasas, 3 intentos? ashhh. A ver si lo adivinas"
-  ];
-  
-  function checkKeyword() {
-    const userInput = document.getElementById("keywordInput").value.trim().toLowerCase();
-    const errorMessage = document.getElementById("errorMessage");
-    const errorHint = document.getElementById("errorHint");
+    const correctKeyword = "interstellar";
+    const hints = [
+      "Pista 1: Es un recuerdo, un momento, una emoción por algo.",
+      "Pista 2: Fue un momento que compartimos, tal vez una canción que escuchamos, algo que hicimos o una película que vimos.",
+      "Pista 3: No flaca, te pasas, 3 intentos? ashhh. A ver, es algo que se reestrenó este año, algo que nos hubiera encantado ver juntos sin importar que durara horas aquella cosa."
+    ];
 
-    if (userInput === correctKeyword) {
-      document.getElementById("hiddenContent").style.display = "block";
-      document.getElementById("keywordSection").style.display = "none";
-    } else {
-      errorMessage.style.display = "block";
-      errorHint.innerText = hints[Math.floor(Math.random() * hints.length)];
+    let hintIndex = 0;
+
+    function checkKeyword() {
+      const input = document.getElementById('keywordInput').value.toLowerCase();
+      if (input === correctKeyword) {
+        document.getElementById('hiddenContent').style.display = 'block';
+        document.getElementById('keywordSection').style.display = 'none';
+      } else {
+        if (hintIndex < hints.length) {
+          document.getElementById('errorMessage').style.display = 'block';
+          document.getElementById('errorHint').innerText = hints[hintIndex];
+          hintIndex++;
+        } else {
+          alert('La palabra clave no es correcta. Intenta de nuevo más tarde.');
+        }
+      }
     }
-  }
 
-  function playAudio() {
-    const audioPlayer = document.getElementById("audioPlayer");
-    audioPlayer.play();
-  }
+    function playAudio() {
+      const audio = document.getElementById('audioPlayer');
+      audio.play();
+    }
   </script>
 </body>
 </html>
